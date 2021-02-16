@@ -1,0 +1,26 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<h1>SignUp.</h1>
+<form action="/AddUser/" method="POST">
+    {% csrf_token %}
+    <div  class="mb-3">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-control" name="username" >
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" name="password" >
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Firstname</label>
+        <input type="text" class="form-control" name="firstname" >
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Lastname</label>
+        <input type="text" class="form-control" name="lastname" >
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+   
+{% endblock %}

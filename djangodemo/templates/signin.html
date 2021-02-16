@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<h1>SignIn.</h1>
+{%if message%}
+<p style="color: red;">ไม่พบผู้ใช้งาน หรือ รหัสผ่านผิด</p>
+{%endif%}
+
+
+<form action="/login/" method="POST">
+    {% csrf_token %}
+    
+ 
+
+    <div  class="mb-3">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-control" name="username" >
+    </div>
+    <div class="mb-3">
+        <label class="form-label">Password</label>
+        <input type="password" class="form-control" name="password" >
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
+  </form>
+   
+{% endblock %}
