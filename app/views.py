@@ -6,8 +6,8 @@ from django.contrib.auth.models import User,auth
 message = ''
 
 def index(request):
-    data = Book.objects.all()
-    return render(request,'index.html',{'name':data})
+    data = Book.objects.all()     
+    return render(request,'index.html',{'products':data})
 
 def Payment(request):
     return render(request,'Payment.html')
@@ -18,6 +18,15 @@ def Delivery(request):
 def booklist(request):
     data = Book.objects.all()
     return render(request,'booklist.html',{'name':data})
+
+def book(request,bookID):
+    
+    data = Book.objects.get(id=bookID)
+    if data.BookQty < 1 : 
+        status = False
+    else:
+        status = True
+    return render(request,'book.html',{'id':bookID,'products':data,'status':status})
 
 def signup(request):
     return render(request,'signup.html')
@@ -62,3 +71,5 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return redirect('/')
+
+

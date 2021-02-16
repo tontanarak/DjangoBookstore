@@ -4,7 +4,7 @@ from django.db import models
 
 
 class Book(models.Model):
-    
+    id = models.AutoField(primary_key=True)
     BookName = models.CharField(max_length=300)
     BookAuthor = models.CharField(max_length=200)
     BookDesc = models.TextField()

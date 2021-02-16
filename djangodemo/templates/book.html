@@ -1,0 +1,21 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+<div class="col-6">
+    <img src="{%static 'images/'%}{{id}}.png">
+</div>
+<div class="col-6">
+    <h2>{{products.BookName}}</h2>
+    <h4>{{products.BookAuthor}}</h4>
+    <h5 class="text-black-50">ราคา {{products.BookPrice}} บาท</h5>
+    {%if status%}
+    <h5 class="text-success">สินค้าพร้อมส่ง</h5>
+    {%else%}
+    <h5 class="text-danger">สินค้าหมด</h5>
+    {%endif%}
+    <br>
+    <div><p>{{products.BookDesc}}</p></div>
+</div>
+</div>
+{% endblock %}
