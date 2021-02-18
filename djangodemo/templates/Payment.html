@@ -1,31 +1,36 @@
 {% extends 'layout.html' %}
-
+{% load static %}
 {% block content %}
-<div class="h2" >
-    <div class="form-title">
-        ช่องทางการชำระเงิน
 
-    </div>
-    <p class="lead">กรุณาเลือกโอนเงินเข้าบัญชีธนาคารด้านล่าง แล้วแจ้งการโอนเงินมายัง payment@bookstore.com </p>
-    <p class="lead">หรือที่หมายเลขโทรศัพท์ 02-222-2222 </p>
-    <p class="lead">หรือแจ้งการโอนเงินผ่าน <a href="">แบบฟอร์มแจ้งโอนเงิน</a> </p>
-    <p class="lead">ชื่อบัญชี บุ๊คสโตร์ไทย</p>
-    <p class="lead">ธนาคารอบูดาบี สาขาดาวอังคาร</p>
-    <p class="lead">เลขที่บัญชี 048-8-84848-8</p>
-        
-        
-   
-       
-    <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
-        
+<h1>Payment</h1>    
+{%for xuser in xuser%}
+<h4>Name : {{xuser.first_name}}</h4>
+{% endfor %}
     
-
-
-</div>
-
-
-{% endblock %}
-
-<h1></h1>
-<p></p>
+    <table class="table">
+        <thead class=" bg-dark text-light">
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Total</th>
+              <th scope="col">Address</th>
+              <th scope="col">Status</th>
+              <th scope="col"> </th>
+            </tr>
+          </thead>
+          <tbody>
+            {%for payment in payment%}
+            
+            <tr>
+              
+              <th scope="row">{{payment.id}}</th>
+              <td>{{payment.Total}} บาท</td>
+              <td>{{payment.Address}}</td>
+              <td>{{payment.Status}}</td>
+              <td><a href="/CancelPaymant/{{payment.id}}">Cancel</a> </td>
+            </tr>
+            
+            {% endfor %}
+          </tbody>
+        </table>
    
+{% endblock %}

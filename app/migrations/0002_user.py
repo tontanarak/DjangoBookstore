@@ -18,6 +18,7 @@ class Migration(migrations.Migration):
                 ('UserPassword', models.CharField(max_length=30)),
                 ('UserFirstname', models.CharField(max_length=100)),
                 ('Userlastname', models.CharField(max_length=100)),
+                ('UserBday', models.CharField(max_length=100)),
             ],
         ),
     ]

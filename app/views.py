@@ -1,7 +1,9 @@
 from django.shortcuts import render,redirect
 from django.http import HttpRequest
 from .models import *
+from django.db.models import Sum
 from django.contrib.auth.models import User,auth
+
 # Create your views here.
 message = ''
 
@@ -9,15 +11,89 @@ def index(request):
     data = Book.objects.all()     
     return render(request,'index.html',{'products':data})
 
-def Payment(request):
-    return render(request,'Payment.html')
 
-def Delivery(request):
-    return render(request,'Delivery.html')
+def howtobuy(request):
+    return render(request,'howtobuy.html')
 
 def booklist(request):
-    data = Book.objects.all()
+   
+    search = request.GET.get('search','')
+    if search:
+        data = Book.objects.filter(BookName__icontains=search)
+    else:
+        data = Book.objects.all()
+    
+    
     return render(request,'booklist.html',{'name':data})
+
+def cart(request,userID):
+    data = Payment.objects.filter(UserID=userID)
+    cart = Cart.objects.filter(UserID=userID)
+    book = Book.objects.all()
+    total = str(Cart.objects.aggregate(Sum('CartPrice')))
+    discont = 0.0
+    if total[19:23] == "None": 
+        total = 0
+    else : 
+        total = float(total[19:].split('}')[0])
+    Total = (total-discont)+60
+    return render(request,'cart.html',{
+        'Total':Total,
+        'total':total,
+        'discont':discont,
+        'book':book,
+        'cart':cart,
+        'book':book,
+        
+        })
+
+def addtocart(request,bookID,userID):
+    qty = request.POST['qty']
+    book = Book.objects.get(id=bookID)
+    user = User.objects.get(id=userID)
+    price = float(qty)*float(book.BookPrice)
+    price = float(price)
+    cart = Cart.objects.create(
+        BookID=book,
+        UserID=user,
+        CartQty=qty,
+        CartPrice=price,
+    )
+    cart.save()
+
+    return redirect("/Cart/"+str(userID))
+
+def deletecart(request,id,userID):
+    deletecart = Cart.objects.filter(id=id).delete()
+    return redirect("/Cart/"+str(userID))
+    
+def pay(request,ID):
+    pay = Payment.objects.all()
+    user = User.objects.filter(id=ID)
+    
+    return render(request,'payment.html',{'payment':pay,'xuser':user})
+
+def cancelpayment(request,ID):
+    delete = Payment.objects.filter(id=ID).delete()
+    return redirect("/Payment/"+str(ID))
+
+
+def addpayment(request,userID):
+    address = request.POST['address']
+    cart = Cart.objects.get(UserID=userID)
+    total = str(Cart.objects.aggregate(Sum('CartPrice')))
+    if total[19:23] == "None": 
+        total = 0
+    else : 
+        total = float(total[19:].split('}')[0])
+    Total = +60
+    pay = Payment.objects.create(
+        UserID=cart.UserID,
+        Total =Total,
+        Address = address,
+    )
+    pay.save()
+    return redirect('/Payment/'+str(userID))
 
 def book(request,bookID):
     
@@ -35,7 +111,7 @@ def signin(request):
    
     return render(request,'signin.html')
 
-def AddUser(request):
+def addUser(request):
     username = request.POST['username']
     firstname = request.POST['firstname']
     lastname = request.POST['lastname']

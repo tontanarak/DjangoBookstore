@@ -3,10 +3,10 @@
 <html  lang="en">
 
     <head>
-        <title>Django</title>
+        <title>ฺBOOKSTORE</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link href="css/style.css" rel="stylesheet">
+       
 
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
@@ -21,46 +21,60 @@
       
           <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav me-auto mb-2 mb-md-0">
+              
               <li class="nav-item">
-                <a class="nav-link" href="/admin/">Admin</a>
+                <a class="nav-link" href="/Booklist/">Booklist</a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="/booklist/">Booklist</a>
+                <a class="nav-link" href="/HowToBuy/">How to buy.</a>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/Payment/">Payment</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/Delivery/">Delivery</a>
-              </li>
-
-
-              {%if user.is_authenticated %}
-              <li class="nav-item">
-                <a class="nav-link" style="color :greenyellow;" href="/signin/">Hello {{user.first_name}}!</a>
-              </li>
-
-              <li class="nav-item">
-                <a class="nav-link" href="/logout/">Logout</a>
-              </li>
-              {%else%}
-              <li class="nav-item">
-                <a class="nav-link" href="/signup/">Register</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/signin/">Login</a>
-              </li>
-
-              {%endif%}
+              
               
              
 
 
             </ul>
-            <form class="d-flex">
-              <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+            <form action="/Booklist/" method="get" class="d-flex">
+              <input class="form-control me-2" name="search" type="search" placeholder="Search" aria-label="Search">
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
+            <ul class="navbar-nav pt-2 mb-2 mb-md-0">
+              {%if user.is_staff%}
+              <li class="nav-item">
+                <a class="nav-link" style="color :white;" href="/admin/">Databased</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" style="color :white;" href="/Order/">Orderlist</a>
+              </li>
+              {%endif%}
+              
+              {%if user.is_authenticated %}
+
+              <li class="nav-item">
+                <a class="nav-link" href="/Payment/{{user.id}}">Payment</a>
+              </li>
+             
+
+              <li class="nav-item">
+                <a class="nav-link" style="color :red;" href="/Cart/{{user.id}}"><img style="width: 1.4em; height: 1.4em;" src="https://www.flaticon.com/svg/vstatic/svg/1170/1170576.svg?token=exp=1613590247~hmac=7eb8897fd53158a1ef4e5f9b85502b01" alt=""></a>
+              </li>
+
+              <li class="nav-item">
+                <a class="nav-link" style="color :red;" href="/Logout/">Logout</a>
+              </li>
+              
+              
+              {%else%}
+              <li class="nav-item">
+                <a class="nav-link" href="/Signup/">Register</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/Signin/">Login</a>
+              </li>
+
+              {%endif%}
+            </ul>
+            
           </div>
         </div>
       </nav>

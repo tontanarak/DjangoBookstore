@@ -7,11 +7,11 @@
       {%for products in products%}
          <div class="col-lg-3 col-sm-8 col-md-6"  >
             <div class="card my-sm-2" style="width: 16rem; height: 32rem;">
-               <a href="/book/{{products.id}}" ><img src="{%static 'images/'%}{{products.id}}.png" alt="My image" class="card-img-top"></a>
+               <a href="/Book/{{products.id}}" ><img src="{%static 'images/'%}{{products.BookPic}}.png" alt="My image" class="card-img-top"></a>
                <div class="card-body">
                  <a style="text-decoration: none;
                  font-weight: 600; 
-                 color: black;" href="/book/{{products.id}}"  class="bookproducts">{{products.BookName}}</a>
+                 color: black;" href="/Book/{{products.id}}"  class="bookproducts">{{products.BookName}}</a>
                  <p style="color: rgb(180, 180, 180);">{{products.BookAuthor}}</p>
                  <p>{{products.BookPrice}} บาท</p>
                </div>

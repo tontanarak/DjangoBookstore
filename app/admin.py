@@ -4,3 +4,5 @@ from .models import *
 
 
 admin.site.register(Book)
+admin.site.register(Cart)
+admin.site.register(Payment)
