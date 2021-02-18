@@ -26,11 +26,14 @@
               <td>{{payment.Total}} บาท</td>
               <td>{{payment.Address}}</td>
               <td>{{payment.Status}}</td>
-              <td><a href="/CancelPaymant/{{payment.id}}">Cancel</a> </td>
+              
             </tr>
             
             {% endfor %}
           </tbody>
         </table>
-   
+        
+        
+          <a class="badge bg-warning "  href="/ConfirmPayment/">Confirm Payment</a>
+        
 {% endblock %}

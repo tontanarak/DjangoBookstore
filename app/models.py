@@ -49,7 +49,13 @@ class Cart(models.Model):
     
     
 
-
+class confirm(models.Model):
+    Name= models.CharField(max_length=300)
+    payID= models.CharField(max_length=300)
+    phoneNo = models.CharField(max_length=300)
+    date =  models.CharField(max_length=300)
+    price = models.CharField(max_length=300)
+    note = models.CharField(max_length=300)
 
 
 

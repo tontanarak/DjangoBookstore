@@ -30,10 +30,12 @@ def cart(request,userID):
     data = Payment.objects.filter(UserID=userID)
     cart = Cart.objects.filter(UserID=userID)
     book = Book.objects.all()
-    total = str(Cart.objects.aggregate(Sum('CartPrice')))
+    total = str(Cart.objects.filter(UserID=userID).aggregate(Sum('CartPrice')))
     discont = 0.0
     if total[19:23] == "None": 
         total = 0
+    elif cart.count()==0:
+        total=0
     else : 
         total = float(total[19:].split('}')[0])
     Total = (total-discont)+60
@@ -73,26 +75,49 @@ def pay(request,ID):
     
     return render(request,'payment.html',{'payment':pay,'xuser':user})
 
-def cancelpayment(request,ID):
-    delete = Payment.objects.filter(id=ID).delete()
-    return redirect("/Payment/"+str(ID))
+def confirmpayment(request):
+    
+    return render(request,'confirmpayment.html')
+def payment(request):
+    cfid = request.POST['cfid']
+    name = request.POST['name']
+    phone = request.POST['phonenumber']
+    date = request.POST['date']
+    price = request.POST['price']
+    note = request.POST['note']
+    cf = confirm.objects.create(
+        payID=cfid,
+        Name=name,
+        phoneNo=phone,
+        date=date,
+        price=price,
+        note=note,
+    )
+
+    cf.save()
+
+    return render(request,'complete.html')
 
 
 def addpayment(request,userID):
     address = request.POST['address']
-    cart = Cart.objects.get(UserID=userID)
-    total = str(Cart.objects.aggregate(Sum('CartPrice')))
+    cart = Cart.objects.filter(UserID=userID)
+    total = str(Cart.objects.filter(UserID=userID).aggregate(Sum('CartPrice')))
     if total[19:23] == "None": 
         total = 0
+    elif cart.count()==0:
+        total=0
     else : 
         total = float(total[19:].split('}')[0])
-    Total = +60
+    Total = total+60
     pay = Payment.objects.create(
-        UserID=cart.UserID,
+        UserID=cart[0].UserID,
         Total =Total,
         Address = address,
     )
     pay.save()
+    total = 0
+    delete = Cart.objects.filter(UserID=userID).delete()
     return redirect('/Payment/'+str(userID))
 
 def book(request,bookID):

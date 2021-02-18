@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% block content %}
+
+<h1>Confirm Payment</h1> 
+<div class="text-align-center">
+    <p>กรุณาเลือกโอนเงินเข้าบัญชีธนาคารด้านล่าง<br> 
+        แจ้งการโอนเงินผ่าน แบบฟอร์มแจ้งโอนเงิน<br>
+       
+           ชื่อบัญชี อ่านเถอะอยากขาย<br>
+           ธนาคารสบู่หู้ว สาขาบางสิบเก้า<br>
+           เลขที่บัญชี 000-80-0125-0</p>   
+</div>
+<form action="/payment/" method="post">
+    
+    {% csrf_token %}
+<div  class="mb-3">
+      <label class="form-label"><h4>Payment Number(#)</h4></label>
+      <input type="text" placeholder="เลข #" required class="form-control" name="cfid" >
+</div>
+  <div  class="mb-3">
+    <label class="form-label"><h4>ชื่อ-นามสกุล</h4></label>
+    <input type="text" placeholder="ประหยุด จันโอราโอร่า" required class="form-control" name="name" >
+</div>
+<div  class="mb-3">
+    <label class="form-label"><h4>Phone Number</h4></label>
+    <input type="text" placeholder="0800000000"  required class="form-control" name="phonenumber" >
+</div>
+<div  class="mb-3">
+    <label class="form-label"><h4>วันที่โอน</h4></label>
+    <input type="datetime-local" required class="form-control" name="date" >
+</div>
+<div  class="mb-3">
+    <label class="form-label"><h4>จำนวนเงิน</h4></label>
+    <input type="number" placeholder="" required class="form-control" name="price" >
+</div>
+<div  class="mb-3">
+    <label class="form-label"><h4>บันทึกช่วยเตือน</h4></label>
+    <input type="text" placeholder="" class="form-control" name="note" >
+</div>
+  <button type="submit" class="btn btn-success">Confirm</button>
+  </form>
+
+
+
+
+{% endblock %}

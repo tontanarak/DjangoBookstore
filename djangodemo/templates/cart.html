@@ -21,7 +21,7 @@
         <td>{{cart.BookID.BookName}}</td>
         <td>{{cart.CartQty}}</td>
         <td>{{cart.CartPrice}}</td>
-        <td><a href="/DeleteCart/{{cart.id}}/{{cart.UserID}}"><img style="width: 1em; height: 1em;" src="https://www.flaticon.com/svg/vstatic/svg/1828/1828665.svg?token=exp=1613592229~hmac=219e6c295ed6fae2c571f995e6cdf84c" alt=""></a></td>
+        <td><a href="/DeleteCart/{{cart.id}}/{{cart.UserID.id}}"><img style="width: 1em; height: 1em;" src="https://www.flaticon.com/svg/vstatic/svg/1828/1828665.svg?token=exp=1613592229~hmac=219e6c295ed6fae2c571f995e6cdf84c" alt=""></a></td>
         
       </tr>
       {% endfor %}
@@ -29,11 +29,13 @@
     </tbody>
     
   </table>
+  
+
   <h4>Price : {{total}} บาท</h4>
-  <h4>Discount : {{discont}} บาท</h4>
+  <h4>Shipping : 60 บาท</h4>
   <h3>Total : {{Total}} บาท</h3>
   <p>*ค่าจัดส่ง 60 บาท ทั่วจักรวาล</p>
- 
+  <a href="/"><button class="btn btn-primary">Back to shopping</button></a>
   {%for cart in cart%}
     <form action="/AddPayment/{{user.id}}" method="post">
       {% endfor %}
