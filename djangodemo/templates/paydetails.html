@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>Payment Detail.</h1>
+<p>Payment No. : {{paym.index}}</p>
+<p>username : {{paym.UserID}}</p>
+<p>ที่อยู่ : {{paym.Address}}</p>
+<p>รายการ : </p>
+
+
+<table class="table">
+    <thead class=" bg-dark text-light">
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Name</th>
+          <th scope="col">Author</th>
+          <th scope="col">Price</th>
+          <th scope="col">Qty.</th>
+        </tr>
+      </thead>
+      <tbody>
+        {%for payment in payment%}
+        <tr>
+          
+          <th scope="row">{{payment.BookID.id}}</th>
+          <td>{{payment.BookID.BookName}}</td>
+          <td>{{payment.BookID.BookAuthor}}</td>
+          <td>{{payment.BookID.BookPrice}} บาท</td>
+          <td>{{payment.qty}}</td>
+          
+        </tr>
+        {% endfor %}
+        <tr>
+          
+            <th scope="row"> </th>
+            <td> รวมค่าส่ง 60 บาท </td>
+            <td> </td>
+            <td>{{Total}} บาท</td>
+            <td> </td>
+            
+          </tr>
+      </tbody>
+    </table>
+  
+
+
+
+
+
+
+<a class="badge bg-danger "  href="/Payment/{{user.id}}">Back</a>
+
+{% endblock %}

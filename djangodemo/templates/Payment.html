@@ -12,9 +12,7 @@
             <tr>
               <th scope="col">#</th>
               <th scope="col">Total</th>
-              <th scope="col">Address</th>
               <th scope="col">Status</th>
-              <th scope="col"> </th>
             </tr>
           </thead>
           <tbody>
@@ -22,9 +20,10 @@
             
             <tr>
               
-              <th scope="row">{{payment.id}}</th>
+              <th scope="row"><a style="text-decoration: none;
+                font-weight: 600; 
+                color: black;" href="Details/{{payment.index}}">{{payment.index}}</a></th>
               <td>{{payment.Total}} บาท</td>
-              <td>{{payment.Address}}</td>
               <td>{{payment.Status}}</td>
               
             </tr>

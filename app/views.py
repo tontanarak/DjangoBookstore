@@ -3,6 +3,7 @@ from django.http import HttpRequest
 from .models import *
 from django.db.models import Sum
 from django.contrib.auth.models import User,auth
+from random import randint
 
 # Create your views here.
 message = ''
@@ -70,7 +71,7 @@ def deletecart(request,id,userID):
     return redirect("/Cart/"+str(userID))
     
 def pay(request,ID):
-    pay = Payment.objects.all()
+    pay = Payment.objects.filter(UserID=ID)
     user = User.objects.filter(id=ID)
     
     return render(request,'payment.html',{'payment':pay,'xuser':user})
@@ -98,11 +99,24 @@ def payment(request):
 
     return render(request,'complete.html')
 
+def paydetials(request,ID):
+    payment  = Payment.objects.filter(index=ID)
+    total = str(Payment.objects.filter(index=ID).aggregate(Sum('Total')))
+    if total[14:20] == "None": 
+        total = 0
+    elif payment.count()==0:
+        total=0
+    else : 
+        total = float(total[14:].split('}')[0])
+    Total = total+60
+    return render(request,'paydetails.html',{'payment':payment,'Total':Total,'paym':payment[0]})
 
 def addpayment(request,userID):
     address = request.POST['address']
     cart = Cart.objects.filter(UserID=userID)
     total = str(Cart.objects.filter(UserID=userID).aggregate(Sum('CartPrice')))
+    s = cart
+    gen_id = randint(0,9999)
     if total[19:23] == "None": 
         total = 0
     elif cart.count()==0:
@@ -110,10 +124,16 @@ def addpayment(request,userID):
     else : 
         total = float(total[19:].split('}')[0])
     Total = total+60
-    pay = Payment.objects.create(
+    for i in range(len(s)):
+        
+        pay = Payment.objects.create(
+        index = gen_id,
         UserID=cart[0].UserID,
-        Total =Total,
+        Total =(s[i].BookID.BookPrice)*s[i].CartQty,
         Address = address,
+        BookID=s[i].BookID,
+        qty = s[i].CartQty
+        
     )
     pay.save()
     total = 0

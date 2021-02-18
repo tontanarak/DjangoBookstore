@@ -17,8 +17,10 @@ class Book(models.Model):
 
 
 class Payment(models.Model):
-    id = models.AutoField(primary_key=True,unique=False)
+    index = models.CharField(max_length=4)
     UserID = models.ForeignKey(User,on_delete=models.CASCADE)
+    BookID = models.ForeignKey(Book,on_delete=models.CASCADE)
+    qty = models.PositiveIntegerField()
     Total = models.PositiveIntegerField()
     Address = models.TextField()
 
@@ -35,6 +37,10 @@ class Payment(models.Model):
         choices=PAYMENT_STATUS,
         default=WAITING,
     )
+    def __str__(self):
+        return self.index
+
+    
     
 
 
