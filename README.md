@@ -1,5 +1,5 @@
 # Book Store Website 
-This is my first project for lern Python and Django framwork
+This is my first project for learn Python and Django framwork
 ## Build with
 * Django
 * Html
