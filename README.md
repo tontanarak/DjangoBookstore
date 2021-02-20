@@ -1,5 +1,5 @@
 # Book Store Website 
-This is my first project for learn Python Django framework and Git.
+This is my first project to learn Python Django framework and Git.
 
 ## Build with
 * Django
